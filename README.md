@@ -1,0 +1,4 @@
+Laboratori-Django
+=================
+
+Practica Django
