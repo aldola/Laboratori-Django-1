@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title> Reserves</title>
+  </head>
+  <body>
+    <h1>Reserves</h1>
+    {% if reserves %}
+    <ul>
+    {% for reserva in reserves %}
+    <li>
+    <a href="/reserves/{{ reserva.id }}/"> {{reserva.client.nom}} ({{ reserva.data_ent}}) </a>
+    </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No ha realitzat cap reserva.</p>
+    {% endif %}
+    <a href="/"> tornar </a>
+  </body>
+</html>

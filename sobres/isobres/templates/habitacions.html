@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title> Habitacions</title>
+  </head>
+  <body>
+    <h1>Habitacions</h1>
+    {% if habitacions %}
+    <ul>
+    {% for habitacio in habitacions %}
+    <li>
+    <a href="/habitacions/{{ habitacio.id }}/"> {{habitacio.hostal.nom}}({{habitacio.numero_habitacio}}) </a> 
+    </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No hi ha cap habitacio.</p>
+    {% endif %}
+    <a href="/"> tornar </a>
+  </body>
+</html>

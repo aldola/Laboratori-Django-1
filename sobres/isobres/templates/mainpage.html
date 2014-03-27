@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>{{ titlehead}}</title>
+  </head>
+  <body>
+    <h1>{{ pagetitle }}</h1>
+    {% if user.username %}
+    <p>Benvingut {{ user.username }}! <BR>
+    Aquí podrà gestionar les teves <a href="/user/{{ user }}">reserves</a>!</p>
+    <a href="/logout">logout</a></p>
+    {% else %}
+    <p>Usuari no identificat: <BR>
+    Obligatori <a href="/login/"> identificarse </a> per gestionar Reserves. <BR>
+    Si no estas registrat pots <a href="/signup"> registrarte </a>.
+    {% endif %}
+    <Br>llistar entitats:<br>
+    <a href="/clients"> clients </a><br>
+    <a href="/hostals"> hostals </a><br>
+    <a href="/reserves"> reserves </a><br>
+    <a href="/habitacions"> habitacions </a><br>
+    </p>
+  </body>
+</html>

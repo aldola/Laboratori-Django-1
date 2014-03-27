@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title> Hostals</title>
+  </head>
+  <body>
+    <h1>Hostals</h1>
+    {% if hostals %}
+    <ul>
+    {% for hostal in hostals %}
+    <li>
+    <a href="/hostals/{{ hostal.id }}/"> {{hostal.nom}} </a> 
+    </li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    <p>No hi ha cap hostal.</p>
+    {% endif %}
+    <a href="/"> tornar </a>
+  </body>
+</html>
