@@ -1,9 +1,9 @@
 <html>
   <head>
-    <title>{{ username }} Reserves</title>
+    <title>{{ username }} Eliminar Reserves</title>
   </head>
   <body>
-    <h1>Reserves fetes per {{ username }}</h1>
+    <h1>Reserves fetes per {{ username }} sense confirmar</h1>
     {% if reserves %}
     <ul>
     {% for reserva in reserves %}
@@ -19,7 +19,11 @@
     <li>
     {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
     <br>
+    {% if reserva.qualificacio != 6 %}
     Confirmada - {{reserva.qualificacio}}/5
+    {% else %}
+    Confirmada - Sense Qualificar
+    {% endif %}
     {% if reserva.comentari_qualificacio != "" %}
      - {{reserva.comentari_qualificacio}}
     {% else %}

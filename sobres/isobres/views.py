@@ -147,6 +147,22 @@ def qualify(request):
 	output = template.render(variables)
 	return HttpResponse(output)
 
+def view(request):
+	user = request.user
+	cli = Client.objects.get(nom=user)
+	r = Reserva.objects.all()
+	reserves = []
+	for res in r:
+		if res.confirmada == True  and res.qualificacio != 6 or res.comentari_qualificacio != "":
+			reserves.append(res)
+	template = get_template('view.html')
+	variables = Context({
+		'username': user.username,
+		'reserves': reserves
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
+
 def edit(request):
 	user = request.user
 	cli = Client.objects.get(nom=user)
@@ -164,6 +180,30 @@ def edit(request):
 	return HttpResponse(output)
 
 
+
+def qualifyone(request, idres):
+    if request.method == 'POST':  # If the form has been submitted...
+	form = QualifyForm(request.POST)  # A form bound to the POST 
+	if form.is_valid():
+	    reserva = Reserva.objects.get(pk=idres)
+            reserva.qualificacio = form.cleaned_data["qualificacio"]
+            if reserva.qualificacio < 0:
+            	reserva.qualificacio = 0
+            elif reserva.qualificacio > 5:
+            	reserva.qualificacio = 5 
+            reserva.comentari_qualificacio = form.cleaned_data["comentari_qualificacio"]
+            reserva.save()
+    	return HttpResponseRedirect('/qualify')  
+    else:
+    	try:
+		reserva = Reserva.objects.get(pk=idres)
+    	except:
+		raise Http404('id Reserva not found.')
+    	form = QualifyForm(instance=reserva)
+	data = {
+		'form': form,
+	}
+	return render_to_response('qualifyone.html', data, context_instance=RequestContext(request))
 
 def editone(request, idres):
     if request.method == 'POST':  # If the form has been submitted...

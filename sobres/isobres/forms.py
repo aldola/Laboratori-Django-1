@@ -27,6 +27,6 @@ class EditForm(ModelForm):
 class QualifyForm(ModelForm):
     class Meta:
         model = Reserva
-        fields = ['habitacio', 'data_ent', 'data_sort', 'confirmada', 'qualificacio', 'comentari_qualificacio']
+        fields = ['qualificacio', 'comentari_qualificacio']
 
         

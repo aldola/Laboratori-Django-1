@@ -17,7 +17,11 @@
     <li>
     {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
     <br>
+    {% if reserva.qualificacio != 6 %}
     Confirmada - {{reserva.qualificacio}}/5
+    {% else %}
+    Confirmada - Sense Qualificar
+    {% endif %}
     {% if reserva.comentari_qualificacio != "" %}
      - {{reserva.comentari_qualificacio}}
     {% else %}

@@ -31,7 +31,7 @@ class Reserva(models.Model):
 	data_ent = models.DateTimeField(default=date.today)
 	data_sort = models.DateTimeField(default=date.today)
 	confirmada = models.BooleanField(default=False)
-	qualificacio = models.IntegerField(default=0)
+	qualificacio = models.IntegerField(default=6)
 	comentari_qualificacio = models.TextField(max_length=150, blank=True)
 	def __unicode__(self):
 		return self.client.nom.username+" - "+self.habitacio.numero_habitacio+" - "+self.habitacio.hostal.nom
