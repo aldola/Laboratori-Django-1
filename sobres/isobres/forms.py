@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from models import *
 from django.forms import ModelForm
  
  
@@ -10,3 +11,10 @@ class SignUpForm(ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
+
+
+class CreateForm(ModelForm):
+    class Meta:
+        model = Reserva
+        fields = ['habitacio', 'data_ent', 'data_sort']
+        

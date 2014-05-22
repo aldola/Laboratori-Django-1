@@ -1,0 +1,27 @@
+   {% if form.errors %}
+        <p>{{ form.errors }}</p>
+    {% endif %}
+ 
+    <form method="post" action="{% url 'create' %}">
+ 
+        {% csrf_token %}
+ 
+        <table>
+            <tr>
+                <td>{{ form.habitacio.label_tag }}</td>
+                <td>{{ form.habitacio }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.data_sort.label_tag }}</td>
+                <td>{{ form.data_sort }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.data_ent.label_tag }}</td>
+                <td>{{ form.data_ent }}</td>
+            </tr>
+        </table>
+ 
+        <input type="submit" value="Registrar"/>
+        <BR>
+        <a href="/"> Tornar </a>
+    </form>

@@ -1,4 +1,4 @@
-Laboratori-Django
+laboratori-django
 =================
 
-Practica Django
+Practica Django Sistemes Web

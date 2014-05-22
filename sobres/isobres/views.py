@@ -15,11 +15,29 @@ from django.template import RequestContext
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
 
-from forms import SignUpForm
+from forms import *
  
 def cerrar(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+def create(request):
+    if request.method == 'POST':  # If the form has been submitted...
+        form = CreateForm(request.POST)  # A form bound to the POST data
+        if form.is_valid():  # All validation rules pass
+ 
+            # Process the data in form.cleaned_data
+            data_sort = form.cleaned_data["data_sort"]
+ 
+
+            return HttpResponseRedirect('/')  # Redirect after POST
+    else:
+        form = CreateForm()
+ 
+    data = {
+        'form': form,
+    }
+    return render_to_response('create.html', data, context_instance=RequestContext(request))
 
 def signup(request):
     if request.method == 'POST':  # If the form has been submitted...

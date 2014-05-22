@@ -2,21 +2,19 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 
-class Client(models.Model):
-	nom = models.ForeignKey(User)
-	direccio = models.TextField(max_length=100)
-	telefon = models.CharField(max_length=100)
-	def __unicode__(self):
-		return self.nom.username
-
-
 class Hostal(models.Model):
 	nom =  models.TextField(max_length=100)
 	direccio = models.TextField(max_length=100)
 	telefon = models.CharField(max_length=12)
 	def __unicode__(self):
 		return self.nom	
-	
+
+class Client(models.Model):
+	nom = models.ForeignKey(User)
+	direccio = models.TextField(max_length=100)
+	telefon = models.CharField(max_length=100)
+	def __unicode__(self):
+		return self.nom.username
 
 class Habitacio(models.Model):
 	hostal = models.ForeignKey(Hostal)
@@ -31,20 +29,8 @@ class Reserva(models.Model):
 	client =  models.ForeignKey(Client)
 	data_ent = models.DateTimeField()
 	data_sort = models.DateTimeField()
+	confirmada = models.BooleanField(default=False)
+	qualificacio = models.IntegerField(default=0)
+	comentari_qualificacio = models.TextField(max_length=150)
 	def __unicode__(self):
 		return self.client.nom.username+" - "+self.habitacio.numero_habitacio+" - "+self.habitacio.hostal.nom
-
-#class Donor(models.Model):
-#        name = models.CharField(max_length=40)
-#        def __unicode__(self):
-#                return self.name
-
-
-#class Sobre(models.Model):
-#	date = models.DateTimeField()
-#	amount = models.IntegerField()
-#	concept = models.TextField(max_length=100)
-#	donor = models.ForeignKey(Donor)
-#	user = models.ForeignKey(User)
-#	def __unicode__(self):
-#		return self.donor.name+" - "+self.concept
