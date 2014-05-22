@@ -29,7 +29,7 @@ class Reserva(models.Model):
 	client =  models.ForeignKey(Client)
 	data_ent = models.DateTimeField()
 	data_sort = models.DateTimeField()
-	confirmada = models.BooleanField(default=False)
+	confirmada = models.BooleanField(default=True)
 	qualificacio = models.IntegerField(default=0)
 	comentari_qualificacio = models.TextField(max_length=150, blank=True)
 	def __unicode__(self):

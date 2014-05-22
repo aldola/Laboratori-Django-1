@@ -7,11 +7,28 @@
     {% if reserves %}
     <ul>
     {% for reserva in reserves %}
+    {% if reserva.confirmada == False %}
     <li>
     {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
     <br>
+    No Confirmada
+    <br>
     <a href="/edit/{{reserva.id}}"> editar </a>
     </li>
+    {% else %}
+    <li>
+    {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
+    <br>
+    Confirmada - {{reserva.qualificacio}}/5
+    {% if reserva.comentari_qualificacio != "" %}
+     - {{reserva.comentari_qualificacio}}
+    {% else %}
+     - Sense Comentari
+    {% endif %}
+    <br>
+    <a href="/edit/{{reserva.id}}"> editar </a>
+    </li>
+    {% endif %}
     {% endfor %}
     </ul>
     <a href="/"> tornar </a>

@@ -151,17 +151,16 @@ def edit(request):
 
 def editone(request, idres):
     try:
+	    reserva = Reserva.objects.get(id=idres)
 	    if request.method == 'POST':  # If the form has been submitted...
 	        form = EditForm(request.POST)  # A form bound to the POST 
-	        reserva = Reserva.objects.get(id=idres)
-	        if form.is_valid():  # All validation rules pass
 
-	            # Process the data in form.cleaned_data
-	            reserva.save()
-
-	            return HttpResponseRedirect('/')  # Redirect after POST
+	        form.save()
+            	confirmada = form.cleaned_data["confirmada"]
+            	reserva.qualificacio = confirmada ####################3
+            	reserva.save()
+    		return HttpResponseRedirect('/edit') 
 	    else:
-	        reserva = Reserva.objects.get(id=idres)
 	        form = EditForm(instance=reserva)
 	        data = {
 	            'form': form,
