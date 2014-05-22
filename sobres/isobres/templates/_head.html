@@ -1,0 +1,69 @@
+
+<html>
+<script type="text/javascript">
+function show(a){
+  	var e=document.getElementById(a);
+  	if(!e)return true;
+  	e.style.display="block"
+  	return true;
+}
+function hideall(){
+  	var e=document.getElementById("create");
+  	if(!e)return true;
+  	e.style.display="none"
+  	var e=document.getElementById("show");
+  	if(!e)return true;
+  	e.style.display="none"
+  	var e=document.getElementById("edit");
+  	if(!e)return true;
+  	e.style.display="none"
+  	var e=document.getElementById("qualify");
+  	if(!e)return true;
+  	e.style.display="none"
+  	var e=document.getElementById("delete");
+  	if(!e)return true;
+  	e.style.display="none"
+  	var e=document.getElementById("view");
+  	if(!e)return true;
+  	e.style.display="none"
+  	return true;
+}
+function toggleMe(a){
+  	hideall()
+  	show(a)
+}
+</script>
+
+
+<input type="button" class="button" onclick="return toggleMe('edit')" value="edit">
+<input type="button" class="button" onclick="return toggleMe('create')" value="create">
+<input type="button" class="button" onclick="return toggleMe('show')" value="show">
+<input type="button" class="button" onclick="return toggleMe('qualify')" value="qualify">
+<input type="button" class="button" onclick="return toggleMe('view')" value="view">
+<input type="button" class="button" onclick="return toggleMe('delete')" value="delete">
+
+<div id="show" style="display:none">
+ imortar userpage.html
+</div>
+
+<div id="edit" style="display:none">
+ imortar edit.html
+</div>
+
+<div id="create" style="display:none">
+ imortar create.html
+</div>
+
+<div id="qualify" style="display:none">
+ imortar qualify.html
+</div>
+
+<div id="view" style="display:none">
+ imortar view.html
+</div>
+
+<div id="delete" style="display:none">
+ imortar delete.html
+</div>
+
+</html>
