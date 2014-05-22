@@ -38,8 +38,12 @@ urlpatterns = patterns('',
     url(r'^hostals', hostals),
     url(r'^login','django.contrib.auth.views.login'), 
     #url(r'^usuarinou/$','principal.views.nou_usuari'),
+    url(r'^edit/(\w+)', editone),
+    url(r'^edit', edit),
     url(r'^signup', 'isobres.views.signup', name='signup'),
     url(r'^create', 'isobres.views.create', name='create'),
+    url(r'^delete/(\w+)', deleteone),
+    url(r'^delete', 'isobres.views.delete', name='delete'),
     url(r'^logout', 'isobres.views.cerrar'),
     url(r'^api-auth', include('rest_framework.urls', namespace='rest_framework'))
 

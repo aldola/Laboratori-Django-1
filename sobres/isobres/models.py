@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 
 class Hostal(models.Model):
 	nom =  models.TextField(max_length=100)
-	direccio = models.TextField(max_length=100)
-	telefon = models.CharField(max_length=12)
+	direccio = models.TextField(max_length=100, null=True)
+	telefon = models.CharField(max_length=12, null=True)
 	def __unicode__(self):
 		return self.nom	
 
@@ -31,6 +31,6 @@ class Reserva(models.Model):
 	data_sort = models.DateTimeField()
 	confirmada = models.BooleanField(default=False)
 	qualificacio = models.IntegerField(default=0)
-	comentari_qualificacio = models.TextField(max_length=150)
+	comentari_qualificacio = models.TextField(max_length=150, blank=True)
 	def __unicode__(self):
 		return self.client.nom.username+" - "+self.habitacio.numero_habitacio+" - "+self.habitacio.hostal.nom

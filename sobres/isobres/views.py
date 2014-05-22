@@ -27,8 +27,13 @@ def create(request):
         if form.is_valid():  # All validation rules pass
  
             # Process the data in form.cleaned_data
+            habitacio = form.cleaned_data["habitacio"]
+            data_ent = form.cleaned_data["data_ent"]
             data_sort = form.cleaned_data["data_sort"]
- 
+	    user = request.user
+            cli = Client.objects.get(nom=user)
+            reserva = Reserva(client=cli, habitacio=habitacio, data_ent=data_ent, data_sort=data_sort)
+            reserva.save()
 
             return HttpResponseRedirect('/')  # Redirect after POST
     else:
@@ -48,15 +53,11 @@ def signup(request):
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             email = form.cleaned_data["email"]
-            first_name = form.cleaned_data["first_name"]
-            last_name = form.cleaned_data["last_name"]
  
             # At this point, user is a User object that has already been saved
             # to the database. You can continue to change its attributes
             # if you want to change other fields.
             user = User.objects.create_user(username, email, password)
-            user.first_name = first_name
-            user.last_name = last_name
  
             # Save new user attributes
             user.save()
@@ -64,7 +65,7 @@ def signup(request):
             cli = Client(nom=user)
             cli.save()
 
-            return HttpResponseRedirect('/login')  # Redirect after POST
+            return HttpResponseRedirect('/')  # Redirect after POST
     else:
         form = SignUpForm()
  
@@ -103,6 +104,71 @@ def userpage(request, username):
 		})
 	output = template.render(variables)
 	return HttpResponse(output)
+
+def deleteone(request, idres):
+    try:
+	reserva = Reserva.objects.get(id=idres)
+    except:
+	raise Http404('id Reserva not found.')
+    reserva.delete()
+    return HttpResponseRedirect('/delete')  
+
+def delete(request):
+	user = request.user
+	cli = Client.objects.get(nom=user)
+	r = Reserva.objects.all()
+	reserves = []
+	for res in r:
+		if res.client == cli:
+			reserves.append(res)
+	template = get_template('delete.html')
+	variables = Context({
+		'username': user.username,
+		'reserves': reserves
+		})
+	output = template.render(variables)
+
+	return HttpResponse(output)
+
+
+def edit(request):
+	user = request.user
+	cli = Client.objects.get(nom=user)
+	r = Reserva.objects.all()
+	reserves = []
+	for res in r:
+		if res.client == cli:
+			reserves.append(res)
+	template = get_template('edit.html')
+	variables = Context({
+		'username': user.username,
+		'reserves': reserves
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
+
+
+
+def editone(request, idres):
+    try:
+	    if request.method == 'POST':  # If the form has been submitted...
+	        form = EditForm(request.POST)  # A form bound to the POST 
+	        reserva = Reserva.objects.get(id=idres)
+	        if form.is_valid():  # All validation rules pass
+
+	            # Process the data in form.cleaned_data
+	            reserva.save()
+
+	            return HttpResponseRedirect('/')  # Redirect after POST
+	    else:
+	        reserva = Reserva.objects.get(id=idres)
+	        form = EditForm(instance=reserva)
+	        data = {
+	            'form': form,
+	        }
+	        return render_to_response('editone.html', data, context_instance=RequestContext(request))
+    except:
+	    raise Http404('Reserva saving error.')
 
 
 def reserves(request, format=None):

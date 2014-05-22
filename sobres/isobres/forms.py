@@ -7,7 +7,7 @@ from django.forms import ModelForm
 class SignUpForm(ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'password', 'email', 'first_name', 'last_name']
+        fields = ['username', 'password', 'email']
         widgets = {
             'password': forms.PasswordInput(),
         }
@@ -17,4 +17,10 @@ class CreateForm(ModelForm):
     class Meta:
         model = Reserva
         fields = ['habitacio', 'data_ent', 'data_sort']
+
+
+class EditForm(ModelForm):
+    class Meta:
+        model = Reserva
+        fields = ['id', 'habitacio', 'data_ent', 'data_sort', 'confirmada']
         
