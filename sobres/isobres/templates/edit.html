@@ -13,7 +13,7 @@
     <br>
     No Confirmada
     <br>
-    <a href="/edit/{{reserva.id}}"> editar </a>
+    <a href="/edit/{{reserva.pk}}"> editar </a>
     </li>
     {% else %}
     <li>
@@ -25,8 +25,6 @@
     {% else %}
      - Sense Comentari
     {% endif %}
-    <br>
-    <a href="/edit/{{reserva.id}}"> editar </a>
     </li>
     {% endif %}
     {% endfor %}

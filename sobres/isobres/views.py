@@ -14,7 +14,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.core.context_processors import csrf
 from django.http import HttpResponseRedirect
-
+from datetime import *
 from forms import *
  
 def cerrar(request):
@@ -106,12 +106,12 @@ def userpage(request, username):
 	return HttpResponse(output)
 
 def deleteone(request, idres):
-    try:
-	reserva = Reserva.objects.get(id=idres)
-    except:
-	raise Http404('id Reserva not found.')
-    reserva.delete()
-    return HttpResponseRedirect('/delete')  
+    	try:
+		reserva = Reserva.objects.get(pk=idres)
+    	except:
+		raise Http404('id Reserva not found.')
+    	reserva.delete()
+    	return HttpResponseRedirect('/delete')  
 
 def delete(request):
 	user = request.user
@@ -130,6 +130,22 @@ def delete(request):
 
 	return HttpResponse(output)
 
+
+def qualify(request):
+	user = request.user
+	cli = Client.objects.get(nom=user)
+	r = Reserva.objects.all()
+	reserves = []
+	for res in r:
+		if res.client == cli and datetime.date(res.data_sort) < date.today():
+			reserves.append(res)
+	template = get_template('qualify.html')
+	variables = Context({
+		'username': user.username,
+		'reserves': reserves
+		})
+	output = template.render(variables)
+	return HttpResponse(output)
 
 def edit(request):
 	user = request.user
@@ -150,15 +166,33 @@ def edit(request):
 
 
 def editone(request, idres):
-    try:
-	    reserva = Reserva.objects.get(id=idres)
+    if request.method == 'POST':  # If the form has been submitted...
+	form = EditForm(request.POST)  # A form bound to the POST 
+	if form.is_valid():
+	    reserva = Reserva.objects.get(pk=idres)
+            reserva.habitacio = form.cleaned_data["habitacio"]
+            reserva.data_ent = form.cleaned_data["data_ent"]
+            reserva.data_sort = form.cleaned_data["data_sort"]
+            reserva.confirmada = form.cleaned_data["confirmada"]
+            reserva.save()
+    	return HttpResponseRedirect('/edit')  
+    else:
+    	try:
+		reserva = Reserva.objects.get(pk=idres)
+    	except:
+		raise Http404('id Reserva not found.')
+    	form = EditForm(instance=reserva)
+	data = {
+		'form': form,
+	}
+	return render_to_response('editone.html', data, context_instance=RequestContext(request))
+    	'''
 	    if request.method == 'POST':  # If the form has been submitted...
 	        form = EditForm(request.POST)  # A form bound to the POST 
-
-	        form.save()
-            	confirmada = form.cleaned_data["confirmada"]
-            	reserva.qualificacio = confirmada ####################3
-            	reserva.save()
+            	reserva.habitacio = form.cleaned_data["habitacio"]
+            	reserva.data_ent = form.cleaned_data["data_ent"]
+            	reserva.data_sort = form.cleaned_data["data_sort"]
+	        reserva.update()
     		return HttpResponseRedirect('/edit') 
 	    else:
 	        form = EditForm(instance=reserva)
@@ -166,9 +200,7 @@ def editone(request, idres):
 	            'form': form,
 	        }
 	        return render_to_response('editone.html', data, context_instance=RequestContext(request))
-    except:
-	    raise Http404('Reserva saving error.')
-
+	'''
 
 def reserves(request, format=None):
 	reserves = Reserva.objects.all()

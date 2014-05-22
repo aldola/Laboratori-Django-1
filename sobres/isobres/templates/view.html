@@ -1,25 +1,21 @@
 <html>
   <head>
-    <title>{{ username }} Reserves</title>
+    <title>{{ username }} Veure Qualificacions</title>
   </head>
   <body>
-    <h1>Reserves fetes per {{ username }}</h1>
+    <h1> Qualificacions i Comentaris dels usuaris</h1>
     {% if reserves %}
     <ul>
     {% for reserva in reserves %}
-    {% if reserva.confirmada == False %}
+    {% if reserva.confirmada == True %}
     <li>
-    {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
+    {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}}
     <br>
-    No Confirmada
-    <br>
-    <a href="/delete/{{reserva.pk}}"> delete </a>
-    </li>
-    {% else %}
-    <li>
-    {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
-    <br>
+    {% if reserva.qualificacio != 6 %}
     Confirmada - {{reserva.qualificacio}}/5
+    {% else %}
+    Confirmada - Sense Qualificar
+    {% endif %}
     {% if reserva.comentari_qualificacio != "" %}
      - {{reserva.comentari_qualificacio}}
     {% else %}

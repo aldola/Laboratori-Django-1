@@ -22,9 +22,11 @@ class CreateForm(ModelForm):
 class EditForm(ModelForm):
     class Meta:
         model = Reserva
+        fields = ['habitacio', 'data_ent', 'data_sort', 'confirmada']
+
+class QualifyForm(ModelForm):
+    class Meta:
+        model = Reserva
         fields = ['habitacio', 'data_ent', 'data_sort', 'confirmada', 'qualificacio', 'comentari_qualificacio']
-        widgets = {
-            'confirmada': forms.CheckboxInput(),
-        }
 
         

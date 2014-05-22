@@ -7,15 +7,7 @@
     {% if reserves %}
     <ul>
     {% for reserva in reserves %}
-    {% if reserva.confirmada == False %}
-    <li>
-    {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
-    <br>
-    No Confirmada
-    <br>
-    <a href="/delete/{{reserva.pk}}"> delete </a>
-    </li>
-    {% else %}
+    {% if reserva.confirmada == True %}
     <li>
     {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}} - {{ reserva.data_ent}} - {{ reserva.data_sort}}
     <br>
@@ -25,6 +17,8 @@
     {% else %}
      - Sense Comentari
     {% endif %}
+    <br>
+    <a href="/qualify/{{reserva.pk}}"> qualify </a>
     </li>
     {% endif %}
     {% endfor %}
