@@ -1,24 +1,23 @@
    {% if form.errors %}
         <p>{{ form.errors }}</p>
     {% endif %}
-    <h1> Registrar una nova Reserva </h1>
-
+ 
     <form method="post" action="{% url 'create' %}">
  
         {% csrf_token %}
  
         <table>
             <tr>
-                <td>{{ form.habitacio.label_tag }}</td>
-                <td>{{ form.habitacio }}</td>
+                <td>{{ form.direccio.label_tag }}</td>
+                <td>{{ form.direccio }}</td>
             </tr>
             <tr>
-                <td>{{ form.data_sort.label_tag }}</td>
-                <td>{{ form.data_sort }}</td>
+                <td>{{ form.pais.label_tag }}</td>
+                <td>{{ form.pais }}</td>
             </tr>
             <tr>
-                <td>{{ form.data_ent.label_tag }}</td>
-                <td>{{ form.data_ent }}</td>
+                <td>{{ form.telefon.label_tag }}</td>
+                <td>{{ form.telefon }}</td>
             </tr>
         </table>
  

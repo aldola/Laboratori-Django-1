@@ -12,14 +12,15 @@
     {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}}
     <br>
     {% if reserva.qualificacio != 6 %}
-    Confirmada - {{reserva.qualificacio}}/5
+    Qualificació: {{reserva.qualificacio}}/5
     {% else %}
-    Confirmada - Sense Qualificar
+    Qualificació: - Sense Qualificar
     {% endif %}
+    <br>
     {% if reserva.comentari_qualificacio != "" %}
-     - {{reserva.comentari_qualificacio}}
+    Comentari: {{reserva.comentari_qualificacio}}
     {% else %}
-     - Sense Comentari
+    Comentari: Sense Comentari
     {% endif %}
     </li>
     {% endif %}
