@@ -53,6 +53,7 @@ def signup(request):
             username = form.cleaned_data["username"]
             password = form.cleaned_data["password"]
             email = form.cleaned_data["email"]
+            nacionalitat = form.cleaned_data["first_name"]
  
             # At this point, user is a User object that has already been saved
             # to the database. You can continue to change its attributes
@@ -62,7 +63,7 @@ def signup(request):
             # Save new user attributes
             user.save()
 
-            cli = Client(nom=user)
+            cli = Client(nom=user, nacionalitat=nacionalitat)
             cli.save()
 
             return HttpResponseRedirect('/')  # Redirect after POST
@@ -151,13 +152,15 @@ def view(request):
 	user = request.user
 	cli = Client.objects.get(nom=user)
 	r = Reserva.objects.all()
+	hostals = Hostal.objects.all()
 	reserves = []
 	for res in r:
 		if res.confirmada == True  and res.qualificacio != 6 or res.comentari_qualificacio != "":
 			reserves.append(res)
-	template = get_template('view.html')
+	template = get_template('view2.html')
 	variables = Context({
 		'username': user.username,
+		'hostals': hostals,
 		'reserves': reserves
 		})
 	output = template.render(variables)
