@@ -3,21 +3,28 @@
     <title>{{ username }} Veure Qualificacions</title>
   </head>
   <body>
+    <span   vocab="http://schema.org/"  typeof="Hostel">
     <h1> Qualificacions i Comentaris dels usuaris</h1>
     {% if reserves %}
-    <ul>
+    <ul rel="review">
     {% for reserva in reserves %}
     {% if reserva.confirmada == True %}
-    <li>
+    <li typeof="Review">
     {{reserva.habitacio.hostal.nom}} - {{reserva.habitacio.numero_habitacio}}
     <br>
     {% if reserva.qualificacio != 6 %}
+            <p rel="reviewRating"  typeof="Rating">    
+                <span   property="worstRating"  content="0"></span> 
+                <span   property="ratingValue" content="{{ reserva.qualificacio }}"> </span>   
+                <span   property="bestRating"   content="5"></span> 
+            </p>    
     Qualificació: {{reserva.qualificacio}}/5
     {% else %}
     Qualificació: - Sense Qualificar
     {% endif %}
     <br>
     {% if reserva.comentari_qualificacio != "" %}
+            <p  property="description">{{ reserva.comentari_qualificacio }}</p>  
     Comentari: {{reserva.comentari_qualificacio}}
     {% else %}
     Comentari: Sense Comentari
@@ -31,5 +38,6 @@
     <p>No ha realitzat cap reserva.</p>
     <a href="/"> tornar </a>
     {% endif %}
+    </span>
   </body>
 </html>
